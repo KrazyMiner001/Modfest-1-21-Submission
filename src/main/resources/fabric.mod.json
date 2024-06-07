@@ -1,32 +1,32 @@
 {
 	"schemaVersion": 1,
-	"id": "modfest-1-21-submision",
+	"id": "snugglevault",
 	"version": "${version}",
-	"name": "Modfest 1.21",
+	"name": "Snuggle Vault",
 	"description": "This is an example description! Tell everyone what your mod is about!",
 	"authors": [
 		"Me!"
 	],
 	"contact": {
-		"homepage": "https://fabricmc.net/",
-		"sources": "https://github.com/FabricMC/fabric-example-mod"
+		"homepage": "",
+		"sources": ""
 	},
 	"license": "MIT",
-	"icon": "assets/modfest-1-21-submision/icon.png",
+	"icon": "assets/snugglevault/icon.png",
 	"environment": "*",
 	"entrypoints": {
 		"main": [
-			"tech.krazyminer001.Modfest121"
+			"tech.krazyminer001.SnuggleVault"
 		],
 		"client": [
-			"tech.krazyminer001.Modfest121Client"
+			"tech.krazyminer001.SnuggleVaultClient"
 		],
 		"fabric-datagen": [
-			"tech.krazyminer001.Modfest121DataGenerator"
+			"tech.krazyminer001.SnuggleVaultDataGenerator"
 		]
 	},
 	"mixins": [
-		"modfest-1-21-submision.mixins.json"
+		"snugglevault.mixins.json"
 	],
 	"depends": {
 		"fabricloader": ">=0.15.11",
