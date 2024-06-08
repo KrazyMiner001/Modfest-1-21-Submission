@@ -13,10 +13,11 @@ import static tech.krazyminer001.utility.Utility.of;
 public class SnuggleVaultItemGroups {
     public static final ItemGroup SNUGGLE_VAULT = register("snuggle_vault",
             FabricItemGroup.builder()
-                    .icon(() -> SnuggleVaultBlocks.CLAW_MACHINE.asItem().getDefaultStack())
+                    .icon(() -> SnuggleVaultBlocks.SNUGGLE_VAULT.asItem().getDefaultStack())
                     .displayName(Text.translatable("item_group.snugglevault.snuggle_vault"))
                     .entries((displayContext, entries) -> {
-                        entries.add(SnuggleVaultBlocks.CLAW_MACHINE.asItem().getDefaultStack());
+                        entries.add(SnuggleVaultBlocks.SNUGGLE_VAULT.asItem().getDefaultStack());
+                        entries.add(SnuggleVaultItems.UNLOCKINATOR.getDefaultStack());
                     })
                     .build());
 
