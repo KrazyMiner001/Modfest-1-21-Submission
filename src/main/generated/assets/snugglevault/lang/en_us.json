@@ -1,4 +1,6 @@
 {
+  "block.snugglevault.claw_machine": "Claw Machine",
+  "block.snugglevault.gacha_machine": "Gacha Machine",
   "block.snugglevault.snuggle_vault": "Snuggle Vault",
   "block.snugglevault.snugglevault.not_owned": "You do not own this Snuggle Vault.",
   "item.snugglevault.unlockinator": "Unlockinator",

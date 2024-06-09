@@ -17,5 +17,10 @@ public class SnuggleVaultClient implements ClientModInitializer {
                 SnuggleVaultBlocks.SNUGGLE_VAULT
         );
 
+        BlockRenderLayerMap.INSTANCE.putBlocks(
+                RenderLayer.getTranslucent(),
+                SnuggleVaultBlocks.GACHA_MACHINE
+        );
+
     }
 }

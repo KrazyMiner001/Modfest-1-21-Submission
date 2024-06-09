@@ -17,6 +17,8 @@ public class SnuggleVaultItemGroups {
                     .displayName(Text.translatable("item_group.snugglevault.snuggle_vault"))
                     .entries((displayContext, entries) -> {
                         entries.add(SnuggleVaultBlocks.SNUGGLE_VAULT.asItem().getDefaultStack());
+                        entries.add(SnuggleVaultBlocks.CLAW_MACHINE.asItem().getDefaultStack());
+                        entries.add(SnuggleVaultBlocks.GACHA_MACHINE.asItem().getDefaultStack());
                         entries.add(SnuggleVaultItems.UNLOCKINATOR.getDefaultStack());
                     })
                     .build());

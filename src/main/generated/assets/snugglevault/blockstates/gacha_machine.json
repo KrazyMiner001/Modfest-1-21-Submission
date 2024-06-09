@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "snugglevault:block/gacha_machine_east"
+    },
+    "facing=north": {
+      "model": "snugglevault:block/gacha_machine_north"
+    },
+    "facing=south": {
+      "model": "snugglevault:block/gacha_machine_south"
+    },
+    "facing=west": {
+      "model": "snugglevault:block/gacha_machine_west"
+    }
+  }
+}
