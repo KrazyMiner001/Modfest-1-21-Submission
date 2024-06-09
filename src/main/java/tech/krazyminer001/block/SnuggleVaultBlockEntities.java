@@ -7,6 +7,7 @@ import net.minecraft.registry.Registry;
 import tech.krazyminer001.SnuggleVault;
 import tech.krazyminer001.block.clawmachine.ClawMachineBlockEntity;
 import tech.krazyminer001.block.gachamachine.GachaMachineBlockEntity;
+import tech.krazyminer001.block.snugglevault.CreativeSnuggleVaultBlockEntity;
 import tech.krazyminer001.block.snugglevault.SnuggleVaultBlockEntity;
 
 import static tech.krazyminer001.utility.Utility.of;
@@ -15,6 +16,10 @@ public class SnuggleVaultBlockEntities {
     public static final BlockEntityType<SnuggleVaultBlockEntity> SNUGGLE_VAULT = register("snuggle_vault",
         BlockEntityType.Builder.create(SnuggleVaultBlockEntity::new,
                 SnuggleVaultBlocks.SNUGGLE_VAULT).build());
+
+    public static final BlockEntityType<CreativeSnuggleVaultBlockEntity> CREATIVE_SNUGGLE_VAULT = register("creative_snuggle_vault",
+        BlockEntityType.Builder.create(CreativeSnuggleVaultBlockEntity::new,
+                SnuggleVaultBlocks.CREATIVE_SNUGGLE_VAULT).build());
 
     public static final BlockEntityType<ClawMachineBlockEntity> CLAW_MACHINE = register("claw_machine",
         BlockEntityType.Builder.create(ClawMachineBlockEntity::new,

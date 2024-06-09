@@ -30,6 +30,14 @@ public class SnuggleVaultModelProvider extends FabricModelProvider {
                         .register(Direction.SOUTH, BlockStateVariant.create().put(VariantSettings.MODEL, ModelIds.getBlockSubModelId(SnuggleVaultBlocks.GACHA_MACHINE, "_south")))
                         .register(Direction.NORTH, BlockStateVariant.create().put(VariantSettings.MODEL, ModelIds.getBlockSubModelId(SnuggleVaultBlocks.GACHA_MACHINE, "_north")))
         ));
+
+        blockStateModelGenerator.blockStateCollector.accept(VariantsBlockStateSupplier.create(SnuggleVaultBlocks.CREATIVE_SNUGGLE_VAULT)
+                .coordinate(BlockStateVariantMap.create(Properties.HORIZONTAL_FACING)
+                        .register(Direction.EAST, BlockStateVariant.create().put(VariantSettings.MODEL, ModelIds.getBlockSubModelId(SnuggleVaultBlocks.SNUGGLE_VAULT, "_east")))
+                        .register(Direction.WEST, BlockStateVariant.create().put(VariantSettings.MODEL, ModelIds.getBlockSubModelId(SnuggleVaultBlocks.SNUGGLE_VAULT, "_west")))
+                        .register(Direction.SOUTH, BlockStateVariant.create().put(VariantSettings.MODEL, ModelIds.getBlockSubModelId(SnuggleVaultBlocks.SNUGGLE_VAULT, "_south")))
+                        .register(Direction.NORTH, BlockStateVariant.create().put(VariantSettings.MODEL, ModelIds.getBlockSubModelId(SnuggleVaultBlocks.SNUGGLE_VAULT, "_north")))
+                ));
     }
 
     @Override

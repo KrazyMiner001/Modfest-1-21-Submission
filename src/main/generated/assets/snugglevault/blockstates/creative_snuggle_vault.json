@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "snugglevault:block/snuggle_vault_east"
+    },
+    "facing=north": {
+      "model": "snugglevault:block/snuggle_vault_north"
+    },
+    "facing=south": {
+      "model": "snugglevault:block/snuggle_vault_south"
+    },
+    "facing=west": {
+      "model": "snugglevault:block/snuggle_vault_west"
+    }
+  }
+}

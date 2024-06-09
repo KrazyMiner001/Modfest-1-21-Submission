@@ -16,6 +16,7 @@ public class SnuggleVaultEnglishUSProvider extends FabricLanguageProvider {
     @Override
     public void generateTranslations(RegistryWrapper.WrapperLookup registryLookup, TranslationBuilder translationBuilder) {
         translationBuilder.add(SnuggleVaultBlocks.SNUGGLE_VAULT, "Snuggle Vault");
+        translationBuilder.add(SnuggleVaultBlocks.CREATIVE_SNUGGLE_VAULT, "Creative Snuggle Vault");
         translationBuilder.add(SnuggleVaultBlocks.CLAW_MACHINE, "Claw Machine");
         translationBuilder.add(SnuggleVaultBlocks.GACHA_MACHINE, "Gacha Machine");
 

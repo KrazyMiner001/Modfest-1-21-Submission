@@ -3,6 +3,7 @@ package tech.krazyminer001.block.snugglevault;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
@@ -27,11 +28,15 @@ import tech.krazyminer001.screen.snugglevault.SnuggleVaultScreenHandler;
 import java.util.UUID;
 
 public class SnuggleVaultBlockEntity extends BlockEntity implements ImplementedInventory, NamedScreenHandlerFactory {
-    private final DefaultedList<ItemStack> items = DefaultedList.ofSize(28, ItemStack.EMPTY);
+    protected final DefaultedList<ItemStack> items = DefaultedList.ofSize(28, ItemStack.EMPTY);
     private UUID owner = null;
 
     public SnuggleVaultBlockEntity(BlockPos pos, BlockState state) {
-        super(SnuggleVaultBlockEntities.SNUGGLE_VAULT, pos, state);
+        this(SnuggleVaultBlockEntities.SNUGGLE_VAULT, pos, state);
+    }
+
+    public SnuggleVaultBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
+        super(type, pos, state);
     }
 
     public UUID getOwner() {
