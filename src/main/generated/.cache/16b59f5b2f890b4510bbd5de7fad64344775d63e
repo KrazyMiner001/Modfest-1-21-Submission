@@ -1,6 +1,8 @@
-// 1.21 Pre-Release 4	2024-06-09T17:20:33.4551315	Snuggle Vault/Model Definitions
+// 1.21 Pre-Release 4	2024-06-09T17:45:30.9139952	Snuggle Vault/Model Definitions
 aea40b56a68d072965262de61f0354b76f134f20 assets\snugglevault\models\item\snuggle_vault.json
-c39b72332be8022196b41f43d2b45efee244d490 assets\snugglevault\blockstates\gacha_machine.json
 87ecc9115686192aeaf582ebb61983e8c18acd2c assets\snugglevault\models\item\gacha_machine.json
+c39b72332be8022196b41f43d2b45efee244d490 assets\snugglevault\blockstates\gacha_machine.json
 6c084c778ed74e769a34eea0777c5b3ffc9deac5 assets\snugglevault\blockstates\snuggle_vault.json
+c713c3d6fbab204a0c69e3c11caa6b9d20a222f6 assets\snugglevault\models\item\creative_snuggle_vault.json
 4f7681a04c0e814b2817f321c78152d51e0527f9 assets\snugglevault\models\item\unlockinator.json
+6c084c778ed74e769a34eea0777c5b3ffc9deac5 assets\snugglevault\blockstates\creative_snuggle_vault.json

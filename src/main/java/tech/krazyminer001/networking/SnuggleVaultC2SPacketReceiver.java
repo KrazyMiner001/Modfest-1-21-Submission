@@ -17,6 +17,7 @@ import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import tech.krazyminer001.block.SnuggleVaultBlockEntities;
 import tech.krazyminer001.block.SnuggleVaultBlocks;
+import tech.krazyminer001.block.gachamachine.GachaMachineBlockEntity;
 import tech.krazyminer001.block.snugglevault.SnuggleVaultBlockEntity;
 import tech.krazyminer001.screen.gachamachine.GachaMachineScreenHandler;
 
@@ -40,7 +41,7 @@ public class SnuggleVaultC2SPacketReceiver {
                     //With this call the server will request the client to open the appropriate Screenhandler
                     player.openHandledScreen(screenHandlerFactory);
                 }
-                world.getBlockEntity(pos, SnuggleVaultBlockEntities.GACHA_MACHINE).ifPresent(gachaMachineBlockEntity -> {
+                if (world.getBlockEntity(pos) instanceof GachaMachineBlockEntity gachaMachineBlockEntity) {
                     ItemStack gachaMachinePasscard = gachaMachineBlockEntity.getStack(0);
                     int removedTokens = TerrificTicketsApi.removeTokens(gachaMachinePasscard, 1);
                     gachaMachineBlockEntity.setStack(0, gachaMachinePasscard);
@@ -50,7 +51,7 @@ public class SnuggleVaultC2SPacketReceiver {
                         TerrificTicketsApi.removeTokens(snuggleVaultPasscard ,-removedTokens);
                         snuggleVaultBlockEntity.setStack(0, snuggleVaultPasscard);
                     }
-                });
+                }
             }
         }));
     }
