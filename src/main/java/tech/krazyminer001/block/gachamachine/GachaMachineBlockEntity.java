@@ -1,9 +1,8 @@
-package tech.krazyminer001.block.snugglevault;
+package tech.krazyminer001.block.gachamachine;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventories;
@@ -21,48 +20,45 @@ import net.minecraft.util.math.BlockPos;
 import org.jetbrains.annotations.Nullable;
 import tech.krazyminer001.api.ImplementedInventory;
 import tech.krazyminer001.block.SnuggleVaultBlockEntities;
-import tech.krazyminer001.screen.snugglevault.SnuggleVaultScreenHandler;
+import tech.krazyminer001.block.snugglevault.SnuggleVaultBlockEntity;
+import tech.krazyminer001.screen.gachamachine.GachaMachineScreenHandler;
 
-import java.util.UUID;
+import java.util.concurrent.atomic.AtomicInteger;
 
-public class SnuggleVaultBlockEntity extends BlockEntity implements ImplementedInventory, NamedScreenHandlerFactory {
-    private final DefaultedList<ItemStack> items = DefaultedList.ofSize(28, ItemStack.EMPTY);
-    private UUID owner = null;
-
-    public SnuggleVaultBlockEntity(BlockPos pos, BlockState state) {
-        super(SnuggleVaultBlockEntities.SNUGGLE_VAULT, pos, state);
+public class GachaMachineBlockEntity extends BlockEntity implements ImplementedInventory, NamedScreenHandlerFactory {
+    private final DefaultedList<ItemStack> items = DefaultedList.ofSize(1, ItemStack.EMPTY);
+    private DefaultedList<ItemStack> gachaItems() {
+        DefaultedList<ItemStack> items = DefaultedList.ofSize(27, ItemStack.EMPTY);
+        if (world == null) return items;
+        BlockEntity worldBlockEntity = world.getBlockEntity(pos.down());
+        if (worldBlockEntity == null) return items;
+        if (!(worldBlockEntity instanceof SnuggleVaultBlockEntity snuggleVaultBlockEntity)) return items;
+        snuggleVaultBlockEntity.markDirty();
+        DefaultedList<ItemStack> tempItems = DefaultedList.of();
+        tempItems.addAll(snuggleVaultBlockEntity.getItems());
+        tempItems.removeFirst();
+        AtomicInteger i = new AtomicInteger();
+        tempItems.reversed().forEach(itemStack -> {
+            if (itemStack.isEmpty()) return;
+            items.set(i.getAndIncrement(), itemStack);
+        });
+        return items;
     }
 
-    public UUID getOwner() {
-        return owner;
-    }
-
-    public void setOwner(UUID owner) {
-        this.owner = owner;
-        markDirty();
+    public GachaMachineBlockEntity(BlockPos pos, BlockState state) {
+        super(SnuggleVaultBlockEntities.GACHA_MACHINE, pos, state);
     }
 
     @Override
     protected void readNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registryLookup) {
         super.readNbt(nbt, registryLookup);
         Inventories.readNbt(nbt, items, registryLookup);
-        if (nbt.contains("owner")) {
-            this.owner = nbt.getUuid("owner");
-        }
     }
 
     @Override
     protected void writeNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registryLookup) {
         Inventories.writeNbt(nbt, items, registryLookup);
-        if (this.owner != null) {
-            nbt.putUuid("owner", this.owner);
-        }
         super.writeNbt(nbt, registryLookup);
-    }
-
-    @Override
-    public DefaultedList<ItemStack> getItems() {
-        return items;
     }
 
     @Nullable
@@ -91,15 +87,13 @@ public class SnuggleVaultBlockEntity extends BlockEntity implements ImplementedI
     @Nullable
     @Override
     public ScreenHandler createMenu(int syncId, PlayerInventory playerInventory, PlayerEntity player) {
-        return new SnuggleVaultScreenHandler(syncId, playerInventory, this);
+        assert world != null;
+        if (!(world.getBlockEntity(pos.down()) instanceof SnuggleVaultBlockEntity snuggleVaultBlockEntity)) return null;
+        return new GachaMachineScreenHandler(syncId, playerInventory, this, snuggleVaultBlockEntity);
     }
 
-    public boolean dispenseItem(int index) {
-        if (index > 27 || world == null || world.isClient()) {
-            return false;
-        }
-        world.spawnEntity(new ItemEntity(world, pos.getX(), pos.getY(), pos.getZ(), items.get(index + 1)));
-        this.setStack(index + 1, ItemStack.EMPTY);
-        return true;
+    @Override
+    public DefaultedList<ItemStack> getItems() {
+        return items;
     }
 }

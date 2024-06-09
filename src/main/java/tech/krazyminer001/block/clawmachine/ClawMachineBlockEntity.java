@@ -1,9 +1,8 @@
-package tech.krazyminer001.block.snugglevault;
+package tech.krazyminer001.block.clawmachine;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventories;
@@ -21,48 +20,25 @@ import net.minecraft.util.math.BlockPos;
 import org.jetbrains.annotations.Nullable;
 import tech.krazyminer001.api.ImplementedInventory;
 import tech.krazyminer001.block.SnuggleVaultBlockEntities;
-import tech.krazyminer001.screen.snugglevault.SnuggleVaultScreenHandler;
+import tech.krazyminer001.screen.clawmachine.ClawMachineScreenHandler;
 
-import java.util.UUID;
+public class ClawMachineBlockEntity extends BlockEntity implements ImplementedInventory, NamedScreenHandlerFactory {
+    private final DefaultedList<ItemStack> items = DefaultedList.ofSize(1, ItemStack.EMPTY);
 
-public class SnuggleVaultBlockEntity extends BlockEntity implements ImplementedInventory, NamedScreenHandlerFactory {
-    private final DefaultedList<ItemStack> items = DefaultedList.ofSize(28, ItemStack.EMPTY);
-    private UUID owner = null;
-
-    public SnuggleVaultBlockEntity(BlockPos pos, BlockState state) {
-        super(SnuggleVaultBlockEntities.SNUGGLE_VAULT, pos, state);
-    }
-
-    public UUID getOwner() {
-        return owner;
-    }
-
-    public void setOwner(UUID owner) {
-        this.owner = owner;
-        markDirty();
+    public ClawMachineBlockEntity(BlockPos pos, BlockState state) {
+        super(SnuggleVaultBlockEntities.CLAW_MACHINE, pos, state);
     }
 
     @Override
     protected void readNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registryLookup) {
         super.readNbt(nbt, registryLookup);
         Inventories.readNbt(nbt, items, registryLookup);
-        if (nbt.contains("owner")) {
-            this.owner = nbt.getUuid("owner");
-        }
     }
 
     @Override
     protected void writeNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registryLookup) {
         Inventories.writeNbt(nbt, items, registryLookup);
-        if (this.owner != null) {
-            nbt.putUuid("owner", this.owner);
-        }
         super.writeNbt(nbt, registryLookup);
-    }
-
-    @Override
-    public DefaultedList<ItemStack> getItems() {
-        return items;
     }
 
     @Nullable
@@ -91,15 +67,11 @@ public class SnuggleVaultBlockEntity extends BlockEntity implements ImplementedI
     @Nullable
     @Override
     public ScreenHandler createMenu(int syncId, PlayerInventory playerInventory, PlayerEntity player) {
-        return new SnuggleVaultScreenHandler(syncId, playerInventory, this);
+        return new ClawMachineScreenHandler(syncId, playerInventory, this);
     }
 
-    public boolean dispenseItem(int index) {
-        if (index > 27 || world == null || world.isClient()) {
-            return false;
-        }
-        world.spawnEntity(new ItemEntity(world, pos.getX(), pos.getY(), pos.getZ(), items.get(index + 1)));
-        this.setStack(index + 1, ItemStack.EMPTY);
-        return true;
+    @Override
+    public DefaultedList<ItemStack> getItems() {
+        return items;
     }
 }
