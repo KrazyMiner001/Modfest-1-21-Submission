@@ -18,6 +18,7 @@ import net.minecraft.screen.ScreenHandler;
 import net.minecraft.text.Text;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 import org.jetbrains.annotations.Nullable;
 import tech.krazyminer001.api.ImplementedInventory;
 import tech.krazyminer001.block.SnuggleVaultBlockEntities;
@@ -98,7 +99,21 @@ public class SnuggleVaultBlockEntity extends BlockEntity implements ImplementedI
         if (index > 27 || world == null || world.isClient()) {
             return false;
         }
-        world.spawnEntity(new ItemEntity(world, pos.getX(), pos.getY(), pos.getZ(), items.get(index + 1)));
+        double xOffset = switch (world.getBlockState(pos).get(SnuggleVaultBlock.FACING)) {
+            case NORTH -> -3.0/16;
+            case SOUTH -> 3.0/16;
+            case EAST -> 0.5;
+            case WEST -> -0.5;
+            default -> 0.0;
+        };
+        double zOffset = switch (world.getBlockState(pos).get(SnuggleVaultBlock.FACING)) {
+            case NORTH -> -0.5;
+            case SOUTH -> 0.5;
+            case EAST -> -3.0/16;
+            case WEST -> 3.0/16;
+            default -> 0.0;
+        };
+        world.spawnEntity(new ItemEntity(world, pos.getX() + 0.5 + xOffset, pos.getY() + 11.0/16, pos.getZ() + 0.5 + zOffset, items.get(index + 1)));
         this.setStack(index + 1, ItemStack.EMPTY);
         return true;
     }
