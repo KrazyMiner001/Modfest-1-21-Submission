@@ -1,10 +1,7 @@
 package tech.krazyminer001.block.gachamachine;
 
 import com.mojang.serialization.MapCodec;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockRenderType;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.BlockWithEntity;
+import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemPlacementContext;
@@ -17,12 +14,21 @@ import net.minecraft.util.BlockRotation;
 import net.minecraft.util.ItemScatterer;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.shape.VoxelShape;
+import net.minecraft.util.shape.VoxelShapes;
+import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
+import tech.krazyminer001.utility.Utility;
 
 public class GachaMachineBlock extends BlockWithEntity {
     public static final DirectionProperty FACING = Properties.HORIZONTAL_FACING;
     public static final MapCodec<GachaMachineBlock> CODEC = createCodec(GachaMachineBlock::new);
+    public static final VoxelShape BASE = VoxelShapes.cuboid(0.0, 0.0, 0.0, 1.0, 1.0/16, 1.0);
+    public static final VoxelShape CONTAINER = VoxelShapes.cuboid(4.0/16, 1.0/16, 1.0/16, 15.0/16, 11.0/16, 15.0/16);
+    public static final VoxelShape COIN_SLOT = VoxelShapes.cuboid(1.0/16, 1.0/16, 1.5/16, 4.0/16, 5.0/16, 3.5/16);
+
+
 
     public GachaMachineBlock(Settings settings) {
         super(settings);
@@ -81,5 +87,23 @@ public class GachaMachineBlock extends BlockWithEntity {
     protected void onStateReplaced(BlockState state, World world, BlockPos pos, BlockState newState, boolean moved) {
         ItemScatterer.onStateReplaced(state, newState, world, pos);
         super.onStateReplaced(state, world, pos, newState, moved);
+    }
+
+    @Override
+    protected VoxelShape getCollisionShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
+        return VoxelShapes.union(
+                Utility.rotateShape(BASE, state.get(FACING)),
+                Utility.rotateShape(CONTAINER, state.get(FACING)),
+                Utility.rotateShape(COIN_SLOT, state.get(FACING))
+        );
+    }
+
+    @Override
+    protected VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
+        return VoxelShapes.union(
+                Utility.rotateShape(BASE, state.get(FACING)),
+                Utility.rotateShape(CONTAINER, state.get(FACING)),
+                Utility.rotateShape(COIN_SLOT, state.get(FACING))
+        );
     }
 }
