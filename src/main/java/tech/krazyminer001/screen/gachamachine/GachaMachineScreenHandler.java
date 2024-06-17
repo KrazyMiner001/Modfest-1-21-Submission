@@ -1,5 +1,6 @@
 package tech.krazyminer001.screen.gachamachine;
 
+import net.minecraft.datafixer.fix.ItemNameFix;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
@@ -23,9 +24,9 @@ public class GachaMachineScreenHandler extends ScreenHandler {
     private final SnuggleVaultBlockEntity vault;
     private final Set<Integer> possibleIndices;
 
-    //This constructor gets called on the client when the server wants it to open the screenHandler,
-    //The client will call the other constructor with an empty Inventory and the screenHandler will automatically
-    //sync this empty inventory with the inventory on the server.
+    // This constructor gets called on the client when the server wants it to open the Gacha Screen handler.
+    // The client will call the other constructor with an empty Inventory, 
+    // and the screenHandler will automatically sync this empty inventory with the inventory on the server.
     public GachaMachineScreenHandler(int syncId, PlayerInventory playerInventory) {
         this(syncId, playerInventory, new SimpleInventory(1), null);
     }
@@ -34,8 +35,9 @@ public class GachaMachineScreenHandler extends ScreenHandler {
         this(syncId, playerInventory, inventory, null);
     }
 
-    //This constructor gets called from the BlockEntity on the server without calling the other constructor first, the server knows the inventory of the container
-    //and can therefore directly provide it as an argument. This inventory will then be synced to the client.
+    // This constructor gets called from the BlockEntity on the server without calling the other constructor first.
+    // The server knows the inventory of the container and can therefore directly provide it as an argument.
+    // Said container's inventory will be synced to the client.
     public GachaMachineScreenHandler(int syncId, PlayerInventory playerInventory, Inventory inventory, SnuggleVaultBlockEntity vault) {
         super(SnuggleVaultScreenHandlers.GACHA_MACHINE_SCREEN_HANDLER, syncId);
         DefaultedList<ItemStack> vaultInventoryItems;
@@ -62,11 +64,12 @@ public class GachaMachineScreenHandler extends ScreenHandler {
         //some inventories do custom logic when a player opens it.
         inventory.onOpen(playerInventory.player);
 
-        //This will place the slot in the correct locations for a 3x3 Grid. The slots exist on both server and client!
-        //This will not render the background of the slots however, this is the Screens job
-        int m;
-        int l;
-        //Our inventory
+        // Place the slots in the correct locations for a 3x3 Grid.
+        // The slots exist on both server and client!
+        // However, this will not render the background of the slots.
+        // This is the Screens job
+        
+        // Gacha machine inventory
         this.addSlot(new PasscardSlot(inventory, 0, 180, 53));
 
         Random random = new Random(vaultInventoryItems.hashCode() + playerInventory.hashCode() + this.hashCode() + (vault == null ? 0 : Objects.requireNonNull(Objects.requireNonNull(vault).getWorld()).getTime()));
@@ -86,17 +89,18 @@ public class GachaMachineScreenHandler extends ScreenHandler {
             this.addSlot(new DisplaySlot(vaultInventory, i, position.x, position.y));
         });
         this.possibleIndices = indices;
-        //The player inventory
-        for (m = 0; m < 3; ++m) {
-            for (l = 0; l < 9; ++l) {
-                this.addSlot(new Slot(playerInventory, l + m * 9 + 9, 8 + l * 18, 84 + m * 18));
+        
+        // The player's inventory
+        for (int row = 0; row < 3; ++row) {
+            for (int col = 0; col < 9; ++col) {
+                this.addSlot(new Slot(playerInventory, col + row * 9 + 9, 8 + col * 18, 84 + row * 18));
             }
         }
-        //The player Hotbar
-        for (m = 0; m < 9; ++m) {
-            this.addSlot(new Slot(playerInventory, m, 8 + m * 18, 142));
+        
+        // ... And the player's Hotbar
+        for (int col = 0; col < 9; ++col) {
+            this.addSlot(new Slot(playerInventory, col, 8 + col * 18, 142));
         }
-
     }
 
     @Override

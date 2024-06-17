@@ -8,7 +8,7 @@ import net.minecraft.util.collection.DefaultedList;
 
 /**
  * A simple {@code Inventory} implementation with only default methods + an item list getter.
- *
+ * <p>
  * Originally by Juuz
  */
 public interface ImplementedInventory extends Inventory {
@@ -67,8 +67,8 @@ public interface ImplementedInventory extends Inventory {
     /**
      * Removes items from an inventory slot.
      * @param slot  The slot to remove from.
-     * @param count How many items to remove. If there are less items in the slot than what are requested,
-     *              takes all items in that slot.
+     * @param count How many items to remove.
+     *              If there are fewer items in the slot than what are requested, the full stack is taken.
      */
     @Override
     default ItemStack removeStack(int slot, int count) {
@@ -90,9 +90,9 @@ public interface ImplementedInventory extends Inventory {
 
     /**
      * Replaces the current stack in an inventory slot with the provided stack.
-     * @param slot  The inventory slot of which to replace the itemstack.
-     * @param stack The replacing itemstack. If the stack is too big for
-     *              this inventory ({@link Inventory#getMaxCountPerStack()}),
+     * @param slot  The inventory slot of which to replace the {@link ItemStack}.
+     * @param stack The replacing {@link ItemStack}.
+     *              If the stack is too big for this inventory ({@link Inventory#getMaxCountPerStack()}),
      *              it gets resized to this inventory's maximum amount.
      */
     @Override
@@ -118,11 +118,11 @@ public interface ImplementedInventory extends Inventory {
      */
     @Override
     default void markDirty() {
-        // Override if you want behavior.
+        // Override if you want behaviour.
     }
 
     /**
-     * @return true if the player can use the inventory, false otherwise.
+     * @return true if the player can use the inventory.
      */
     @Override
     default boolean canPlayerUse(PlayerEntity player) {

@@ -20,8 +20,5 @@ public class SnuggleVaultC2SPackets {
         public Id<? extends CustomPayload> getId() {
             return PACKET_ID;
         }
-
-
-
     }
 }

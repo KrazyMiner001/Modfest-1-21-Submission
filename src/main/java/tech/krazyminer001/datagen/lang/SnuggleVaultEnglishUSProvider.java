@@ -22,7 +22,7 @@ public class SnuggleVaultEnglishUSProvider extends FabricLanguageProvider {
 
         translationBuilder.add(SnuggleVaultItems.UNLOCKINATOR, "Unlockinator");
 
-        translationBuilder.add("block.snugglevault.snugglevault.not_owned", "You do not own this Snuggle Vault.");
+        translationBuilder.add("block.snugglevault.snugglevault.not_owned", "You don't own this Snuggle Vault.");
         translationBuilder.add("item_group.snugglevault.snuggle_vault", "Snuggle Vault");
     }
 }

@@ -1,5 +1,6 @@
 package tech.krazyminer001.screen.snugglevault;
 
+import net.minecraft.datafixer.fix.ItemNameFix;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
@@ -22,25 +23,22 @@ public class SnuggleVaultScreenHandler extends ScreenHandler {
         this.inventory = inventory;
         inventory.onOpen(playerInventory.player);
 
-        int m;
-        int l;
-
         this.addSlot(new PasscardSlot(inventory, 0, 152, 76));
 
-        for (m = 0; m < 3; ++m) {
-            for (l = 0; l < 9; ++l) {
-                this.addSlot(new Slot(inventory, l + m * 9 + 1, 8 + l * 18, 18 + m * 18));
+        for (int row = 0; row < 3; ++row) {
+            for (int col = 0; col < 9; ++col) {
+                this.addSlot(new Slot(inventory, col + row * 9 + 1, 8 + col * 18, 18 + row * 18));
             }
         }
 
-        for (m = 0; m < 3; ++m) {
-            for (l = 0; l < 9; ++l) {
-                this.addSlot(new Slot(playerInventory, l + m * 9 + 9, 8 + l * 18, 84 + 22 + m * 18));
+        for (int row = 0; row < 3; ++row) {
+            for (int col = 0; col < 9; ++col) {
+                this.addSlot(new Slot(playerInventory, col + row * 9 + 9, 8 + col * 18, 84 + 22 + row * 18));
             }
         }
 
-        for (m = 0; m < 9; ++m) {
-            this.addSlot(new Slot(playerInventory, m, 8 + m * 18, 142 + 22));
+        for (int row = 0; row < 9; ++row) {
+            this.addSlot(new Slot(playerInventory, row, 8 + row * 18, 142 + 22));
         }
     }
 
@@ -73,5 +71,4 @@ public class SnuggleVaultScreenHandler extends ScreenHandler {
 
         return newStack;
     }
-
 }

@@ -79,6 +79,5 @@ public class GachaMachineScreen extends HandledScreen<GachaMachineScreenHandler>
 
     private void rollGacha() {
         SnuggleVaultC2SPacketSender.sendGachaMachineSpinPacket();
-
     }
 }

@@ -30,9 +30,10 @@ public class GachaMachineBlockEntity extends BlockEntity implements ImplementedI
     private DefaultedList<ItemStack> gachaItems() {
         DefaultedList<ItemStack> items = DefaultedList.ofSize(27, ItemStack.EMPTY);
         if (world == null) return items;
+        
         BlockEntity worldBlockEntity = world.getBlockEntity(pos.down());
-        if (worldBlockEntity == null) return items;
         if (!(worldBlockEntity instanceof SnuggleVaultBlockEntity snuggleVaultBlockEntity)) return items;
+        
         snuggleVaultBlockEntity.markDirty();
         DefaultedList<ItemStack> tempItems = DefaultedList.of();
         tempItems.addAll(snuggleVaultBlockEntity.getItems());

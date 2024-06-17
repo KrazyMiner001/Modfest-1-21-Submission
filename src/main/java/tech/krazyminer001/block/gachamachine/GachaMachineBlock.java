@@ -24,10 +24,9 @@ import tech.krazyminer001.utility.Utility;
 public class GachaMachineBlock extends BlockWithEntity {
     public static final DirectionProperty FACING = Properties.HORIZONTAL_FACING;
     public static final MapCodec<GachaMachineBlock> CODEC = createCodec(GachaMachineBlock::new);
-    public static final VoxelShape BASE = VoxelShapes.cuboid(0.0, 0.0, 0.0, 1.0, 1.0/16, 1.0);
-    public static final VoxelShape CONTAINER = VoxelShapes.cuboid(4.0/16, 1.0/16, 1.0/16, 15.0/16, 11.0/16, 15.0/16);
-    public static final VoxelShape COIN_SLOT = VoxelShapes.cuboid(1.0/16, 1.0/16, 1.5/16, 4.0/16, 5.0/16, 3.5/16);
-
+    public static final VoxelShape BASE = VoxelShapes.cuboid(0.0, 0.0, 0.0, 1.0, 1.0 / 16, 1.0);
+    public static final VoxelShape CONTAINER = VoxelShapes.cuboid(4.0 / 16, 1.0 / 16, 1.0 / 16, 15.0 / 16, 11.0 / 16, 15.0 / 16);
+    public static final VoxelShape COIN_SLOT = VoxelShapes.cuboid(1.0 / 16, 1.0 / 16, 1.5 / 16, 4.0 / 16, 5.0 / 16, 3.5 / 16);
 
 
     public GachaMachineBlock(Settings settings) {
@@ -48,12 +47,13 @@ public class GachaMachineBlock extends BlockWithEntity {
     @Override
     protected ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
         if (!world.isClient) {
-            //This will call the createScreenHandlerFactory method from BlockWithEntity, which will return our blockEntity casted to
-            //a namedScreenHandlerFactory. If your block class does not extend BlockWithEntity, it needs to implement createScreenHandlerFactory.
+            // This will call the createScreenHandlerFactory method from BlockWithEntity,
+            // which will return our blockEntity cast to a namedScreenHandlerFactory
+            // (as we extend BlockWithEntity).
             NamedScreenHandlerFactory screenHandlerFactory = state.createScreenHandlerFactory(world, pos);
 
             if (screenHandlerFactory != null) {
-                //With this call the server will request the client to open the appropriate Screenhandler
+                // The server requests the client to open the Gacha screen handler
                 player.openHandledScreen(screenHandlerFactory);
             }
         }
@@ -64,10 +64,12 @@ public class GachaMachineBlock extends BlockWithEntity {
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
         builder.add(FACING);
     }
+   
     @Override
     protected BlockState rotate(BlockState state, BlockRotation rotation) {
         return state.with(FACING, rotation.rotate(state.get(FACING)));
     }
+
     @Nullable
     @Override
     public BlockState getPlacementState(ItemPlacementContext ctx) {
