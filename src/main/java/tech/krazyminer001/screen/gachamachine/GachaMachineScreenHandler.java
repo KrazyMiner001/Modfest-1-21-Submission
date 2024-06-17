@@ -1,6 +1,5 @@
 package tech.krazyminer001.screen.gachamachine;
 
-import net.minecraft.datafixer.fix.ItemNameFix;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
@@ -68,7 +67,7 @@ public class GachaMachineScreenHandler extends ScreenHandler {
         // The slots exist on both server and client!
         // However, this will not render the background of the slots.
         // This is the Screens job
-        
+
         // Gacha machine inventory
         this.addSlot(new PasscardSlot(inventory, 0, 180, 53));
 
@@ -80,7 +79,7 @@ public class GachaMachineScreenHandler extends ScreenHandler {
         }
         Set<Vector2i> positionSet = new HashSet<>();
         while (positionSet.size() < ballNum) {
-            positionSet.add(new Vector2i(13 + 22*(random.nextInt(7)),  22 + 22*(random.nextInt(2))));
+            positionSet.add(new Vector2i(13 + 22 * (random.nextInt(7)), 22 + 22 * (random.nextInt(2))));
         }
         List<Vector2i> positions = new ArrayList<>(positionSet);
 
@@ -89,14 +88,14 @@ public class GachaMachineScreenHandler extends ScreenHandler {
             this.addSlot(new DisplaySlot(vaultInventory, i, position.x, position.y));
         });
         this.possibleIndices = indices;
-        
+
         // The player's inventory
         for (int row = 0; row < 3; ++row) {
             for (int col = 0; col < 9; ++col) {
                 this.addSlot(new Slot(playerInventory, col + row * 9 + 9, 8 + col * 18, 84 + row * 18));
             }
         }
-        
+
         // ... And the player's Hotbar
         for (int col = 0; col < 9; ++col) {
             this.addSlot(new Slot(playerInventory, col, 8 + col * 18, 142));

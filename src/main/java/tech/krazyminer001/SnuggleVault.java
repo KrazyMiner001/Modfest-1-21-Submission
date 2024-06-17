@@ -14,17 +14,17 @@ import tech.krazyminer001.screen.SnuggleVaultScreenHandlers;
 
 public class SnuggleVault implements ModInitializer {
     public static final Logger LOGGER = LoggerFactory.getLogger("snugglevault");
-	public static final String MOD_ID = "snugglevault";
+    public static final String MOD_ID = "snugglevault";
 
-	@Override
-	public void onInitialize() {
-		SnuggleVaultBlocks.registerBlocks();
-		SnuggleVaultBlockEntities.registerBlockEntities();
-		SnuggleVaultItemGroups.registerItemGroups();
-		SnuggleVaultScreenHandlers.registerScreenHandlers();
-		SnuggleVaultItems.registerItems();
+    @Override
+    public void onInitialize() {
+        SnuggleVaultBlocks.registerBlocks();
+        SnuggleVaultBlockEntities.registerBlockEntities();
+        SnuggleVaultItemGroups.registerItemGroups();
+        SnuggleVaultScreenHandlers.registerScreenHandlers();
+        SnuggleVaultItems.registerItems();
 
-		PayloadTypeRegistry.playC2S().register(SnuggleVaultC2SPackets.GachaMachineSpinPacket.PACKET_ID, SnuggleVaultC2SPackets.GachaMachineSpinPacket.PACKET_CODEC);
-		SnuggleVaultC2SPacketReceiver.registerC2SReceivers();
-	}
+        PayloadTypeRegistry.playC2S().register(SnuggleVaultC2SPackets.GachaMachineSpinPacket.PACKET_ID, SnuggleVaultC2SPackets.GachaMachineSpinPacket.PACKET_CODEC);
+        SnuggleVaultC2SPacketReceiver.registerC2SReceivers();
+    }
 }

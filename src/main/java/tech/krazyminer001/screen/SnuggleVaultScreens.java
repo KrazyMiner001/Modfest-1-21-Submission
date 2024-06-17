@@ -2,7 +2,6 @@ package tech.krazyminer001.screen;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.client.gui.screen.ingame.HandledScreens;
 import tech.krazyminer001.screen.clawmachine.ClawMachineScreen;
 import tech.krazyminer001.screen.gachamachine.GachaMachineScreen;

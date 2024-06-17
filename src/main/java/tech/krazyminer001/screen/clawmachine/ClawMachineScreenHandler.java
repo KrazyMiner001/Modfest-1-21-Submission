@@ -34,7 +34,7 @@ public class ClawMachineScreenHandler extends ScreenHandler {
         // The slots exist on both server and client!
         // However, this will not render the background of the slots.
         // This is the Screens job
-        
+
         // Claw Machine's inventory
         // TODO: Actually draw inventory
         this.addSlot(new PasscardSlot(inventory, 0, 80, 35));

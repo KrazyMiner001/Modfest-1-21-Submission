@@ -3,20 +3,15 @@ package tech.krazyminer001.screen.clawmachine;
 import com.google.common.collect.Lists;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.gui.screen.ingame.BeaconScreen;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.client.gui.widget.ButtonWidget;
-import net.minecraft.client.gui.widget.ClickableWidget;
 import net.minecraft.client.gui.widget.PressableTextWidget;
 import net.minecraft.client.render.GameRenderer;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
-import tech.krazyminer001.SnuggleVault;
 
 import java.util.List;
-
-import static tech.krazyminer001.utility.Utility.of;
 
 public class ClawMachineScreen extends HandledScreen<ClawMachineScreenHandler> {
     private static final Identifier TEXTURE = Identifier.ofVanilla("textures/gui/container/dispenser.png");
@@ -56,15 +51,15 @@ public class ClawMachineScreen extends HandledScreen<ClawMachineScreenHandler> {
         titleX = (backgroundWidth - textRenderer.getWidth(title)) / 2;
         this.buttons.clear();
         this.addButton(new PressableTextWidget(
-                width / 2 - 100,
-                height / 2 - 50,
-                200,
-                20,
-                Text.translatable("screen.snugglevault.clawmachine.start"),
-                button -> {
-                    System.out.println("Start button pressed");
-                },
-                textRenderer
+                        width / 2 - 100,
+                        height / 2 - 50,
+                        200,
+                        20,
+                        Text.translatable("screen.snugglevault.clawmachine.start"),
+                        button -> {
+                            System.out.println("Start button pressed");
+                        },
+                        textRenderer
                 )
         );
 

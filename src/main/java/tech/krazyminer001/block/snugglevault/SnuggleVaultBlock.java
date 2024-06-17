@@ -3,10 +3,8 @@ package tech.krazyminer001.block.snugglevault;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemPlacementContext;
-import net.minecraft.item.ItemStack;
 import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.state.StateManager;
@@ -30,9 +28,9 @@ public class SnuggleVaultBlock extends BlockWithEntity {
     public static final DirectionProperty FACING = Properties.HORIZONTAL_FACING;
     public static final MapCodec<SnuggleVaultBlock> CODEC = createCodec(SnuggleVaultBlock::new);
     public static final VoxelShape SHAPE = VoxelShapes.union(
-            VoxelShapes.cuboid(0.0, 0.0, 0.0, 1.0, 1.0/16, 1.0),
-            VoxelShapes.cuboid(1.0/16, 1.0/16, 1.0/16, 15.0/16, 15.0/16, 15.0/16),
-            VoxelShapes.cuboid(0.0, 15.0/16, 0.0, 1.0, 1.0, 1.0)
+            VoxelShapes.cuboid(0.0, 0.0, 0.0, 1.0, 1.0 / 16, 1.0),
+            VoxelShapes.cuboid(1.0 / 16, 1.0 / 16, 1.0 / 16, 15.0 / 16, 15.0 / 16, 15.0 / 16),
+            VoxelShapes.cuboid(0.0, 15.0 / 16, 0.0, 1.0, 1.0, 1.0)
     );
 
     public SnuggleVaultBlock(Settings settings) {

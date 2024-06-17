@@ -27,13 +27,18 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class GachaMachineBlockEntity extends BlockEntity implements ImplementedInventory, NamedScreenHandlerFactory {
     private final DefaultedList<ItemStack> items = DefaultedList.ofSize(1, ItemStack.EMPTY);
+
+    public GachaMachineBlockEntity(BlockPos pos, BlockState state) {
+        super(SnuggleVaultBlockEntities.GACHA_MACHINE, pos, state);
+    }
+
     private DefaultedList<ItemStack> gachaItems() {
         DefaultedList<ItemStack> items = DefaultedList.ofSize(27, ItemStack.EMPTY);
         if (world == null) return items;
-        
+
         BlockEntity worldBlockEntity = world.getBlockEntity(pos.down());
         if (!(worldBlockEntity instanceof SnuggleVaultBlockEntity snuggleVaultBlockEntity)) return items;
-        
+
         snuggleVaultBlockEntity.markDirty();
         DefaultedList<ItemStack> tempItems = DefaultedList.of();
         tempItems.addAll(snuggleVaultBlockEntity.getItems());
@@ -44,10 +49,6 @@ public class GachaMachineBlockEntity extends BlockEntity implements ImplementedI
             items.set(i.getAndIncrement(), itemStack);
         });
         return items;
-    }
-
-    public GachaMachineBlockEntity(BlockPos pos, BlockState state) {
-        super(SnuggleVaultBlockEntities.GACHA_MACHINE, pos, state);
     }
 
     @Override

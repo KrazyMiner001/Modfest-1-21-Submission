@@ -5,23 +5,18 @@ import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.ButtonTextures;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.client.gui.widget.ButtonWidget;
-import net.minecraft.client.gui.widget.PressableTextWidget;
-import net.minecraft.client.gui.widget.TextIconButtonWidget;
 import net.minecraft.client.gui.widget.TexturedButtonWidget;
 import net.minecraft.client.render.GameRenderer;
 import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.screen.slot.Slot;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.collection.DefaultedList;
 import tech.krazyminer001.networking.SnuggleVaultC2SPacketSender;
 import tech.krazyminer001.screen.slots.DisplaySlot;
-import static tech.krazyminer001.utility.Utility.of;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
+
+import static tech.krazyminer001.utility.Utility.of;
 
 public class GachaMachineScreen extends HandledScreen<GachaMachineScreenHandler> {
     private static final Identifier TEXTURE = of("textures/gui/container/gacha_machine.png");

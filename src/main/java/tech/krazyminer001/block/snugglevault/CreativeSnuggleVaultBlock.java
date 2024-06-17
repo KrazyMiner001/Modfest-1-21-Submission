@@ -5,7 +5,7 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.util.math.BlockPos;
 import org.jetbrains.annotations.Nullable;
 
-public class CreativeSnuggleVaultBlock extends SnuggleVaultBlock{
+public class CreativeSnuggleVaultBlock extends SnuggleVaultBlock {
     public CreativeSnuggleVaultBlock(Settings settings) {
         super(settings);
     }

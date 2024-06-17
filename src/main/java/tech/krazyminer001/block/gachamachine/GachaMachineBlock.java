@@ -64,7 +64,7 @@ public class GachaMachineBlock extends BlockWithEntity {
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
         builder.add(FACING);
     }
-   
+
     @Override
     protected BlockState rotate(BlockState state, BlockRotation rotation) {
         return state.with(FACING, rotation.rotate(state.get(FACING)));

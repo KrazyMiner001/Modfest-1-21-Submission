@@ -1,6 +1,5 @@
 package tech.krazyminer001.screen.snugglevault;
 
-import net.minecraft.datafixer.fix.ItemNameFix;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
@@ -13,6 +12,7 @@ import tech.krazyminer001.screen.slots.PasscardSlot;
 
 public class SnuggleVaultScreenHandler extends ScreenHandler {
     private final Inventory inventory;
+
     public SnuggleVaultScreenHandler(int syncId, PlayerInventory playerInventory) {
         this(syncId, playerInventory, new SimpleInventory(28));
     }

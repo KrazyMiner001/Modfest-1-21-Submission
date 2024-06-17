@@ -6,11 +6,11 @@ import tech.krazyminer001.datagen.SnuggleVaultModelProvider;
 import tech.krazyminer001.datagen.lang.SnuggleVaultEnglishUSProvider;
 
 public class SnuggleVaultDataGenerator implements DataGeneratorEntrypoint {
-	@Override
-	public void onInitializeDataGenerator(FabricDataGenerator fabricDataGenerator) {
-		FabricDataGenerator.Pack pack = fabricDataGenerator.createPack();
+    @Override
+    public void onInitializeDataGenerator(FabricDataGenerator fabricDataGenerator) {
+        FabricDataGenerator.Pack pack = fabricDataGenerator.createPack();
 
-		pack.addProvider(SnuggleVaultModelProvider::new);
-		pack.addProvider(SnuggleVaultEnglishUSProvider::new);
-	}
+        pack.addProvider(SnuggleVaultModelProvider::new);
+        pack.addProvider(SnuggleVaultEnglishUSProvider::new);
+    }
 }
