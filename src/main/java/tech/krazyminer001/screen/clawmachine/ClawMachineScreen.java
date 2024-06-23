@@ -3,19 +3,26 @@ package tech.krazyminer001.screen.clawmachine;
 import com.google.common.collect.Lists;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.gui.DrawContext;
+import net.minecraft.client.gui.screen.ButtonTextures;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.gui.widget.PressableTextWidget;
+import net.minecraft.client.gui.widget.TexturedButtonWidget;
 import net.minecraft.client.render.GameRenderer;
+import net.minecraft.client.util.InputUtil;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
+import tech.krazyminer001.networking.SnuggleVaultC2SPacketSender;
 
 import java.util.List;
+
+import static tech.krazyminer001.utility.Utility.of;
 
 public class ClawMachineScreen extends HandledScreen<ClawMachineScreenHandler> {
     private static final Identifier TEXTURE = Identifier.ofVanilla("textures/gui/container/dispenser.png");
     private final List<ButtonWidget> buttons = Lists.newArrayList();
+    private boolean active = false;
 
 
     public ClawMachineScreen(ClawMachineScreenHandler handler, PlayerInventory inventory, Text title) {
@@ -50,22 +57,35 @@ public class ClawMachineScreen extends HandledScreen<ClawMachineScreenHandler> {
         // Center the title
         titleX = (backgroundWidth - textRenderer.getWidth(title)) / 2;
         this.buttons.clear();
-        this.addButton(new PressableTextWidget(
-                        width / 2 - 100,
-                        height / 2 - 50,
-                        200,
-                        20,
-                        Text.translatable("screen.snugglevault.clawmachine.start"),
-                        button -> {
-                            System.out.println("Start button pressed");
-                        },
-                        textRenderer
-                )
-        );
+        this.addButton(new TexturedButtonWidget(
+                179 + x,
+                y,
+                18,
+                45,
+                new ButtonTextures(
+                        of("container/gachamachine/lever_unselected"),
+                        of("container/gachamachine/lever_selected")
+                ),
+                button -> startGame()
+        ));
 
+    }
+
+    @Override
+    public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
+        if (keyCode == InputUtil.GLFW_KEY_SPACE) {
+            if (this.active) {
+                SnuggleVaultC2SPacketSender.sendClawMachineEndPacket();
+                return true;
+            }
+        }
+
+        return super.keyPressed(keyCode, scanCode, modifiers);
     }
 
     private void startGame() {
         this.buttons.clear();
+        this.active = true;
+        SnuggleVaultC2SPacketSender.sendClawMachineStartPacket();
     }
 }

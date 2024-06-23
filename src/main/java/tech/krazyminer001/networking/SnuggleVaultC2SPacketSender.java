@@ -9,4 +9,12 @@ public class SnuggleVaultC2SPacketSender {
     public static void sendGachaMachineSpinPacket() {
         ClientPlayNetworking.send(new SnuggleVaultC2SPackets.GachaMachineSpinPacket());
     }
+
+    public static void sendClawMachineStartPacket() {
+        ClientPlayNetworking.send(new SnuggleVaultC2SPackets.ClawMachineStartPacket());
+    }
+
+    public static void sendClawMachineEndPacket() {
+        ClientPlayNetworking.send(new SnuggleVaultC2SPackets.ClawMachineEndPacket());
+    }
 }

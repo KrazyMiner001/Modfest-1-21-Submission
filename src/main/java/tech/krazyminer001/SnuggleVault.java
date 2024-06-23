@@ -25,6 +25,8 @@ public class SnuggleVault implements ModInitializer {
         SnuggleVaultItems.registerItems();
 
         PayloadTypeRegistry.playC2S().register(SnuggleVaultC2SPackets.GachaMachineSpinPacket.PACKET_ID, SnuggleVaultC2SPackets.GachaMachineSpinPacket.PACKET_CODEC);
+        PayloadTypeRegistry.playC2S().register(SnuggleVaultC2SPackets.ClawMachineStartPacket.PACKET_ID, SnuggleVaultC2SPackets.ClawMachineStartPacket.PACKET_CODEC);
+        PayloadTypeRegistry.playC2S().register(SnuggleVaultC2SPackets.ClawMachineEndPacket.PACKET_ID, SnuggleVaultC2SPackets.ClawMachineEndPacket.PACKET_CODEC);
         SnuggleVaultC2SPacketReceiver.registerC2SReceivers();
     }
 }

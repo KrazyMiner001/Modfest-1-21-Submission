@@ -15,13 +15,17 @@ import static tech.krazyminer001.utility.Utility.of;
 public class SnuggleVaultBlockEntities {
     private static <T extends BlockEntity> BlockEntityType<T> register(String id, BlockEntityType<T> type) {
         return Registry.register(Registries.BLOCK_ENTITY_TYPE, of(id), type);
-    }    public static final BlockEntityType<SnuggleVaultBlockEntity> SNUGGLE_VAULT = register("snuggle_vault",
+    }
+
+    public static final BlockEntityType<SnuggleVaultBlockEntity> SNUGGLE_VAULT = register("snuggle_vault",
             BlockEntityType.Builder.create(SnuggleVaultBlockEntity::new,
                     SnuggleVaultBlocks.SNUGGLE_VAULT).build());
 
     public static void registerBlockEntities() {
         SnuggleVault.LOGGER.info("Registering Block Entities for " + SnuggleVault.MOD_ID);
-    }    public static final BlockEntityType<CreativeSnuggleVaultBlockEntity> CREATIVE_SNUGGLE_VAULT = register("creative_snuggle_vault",
+    }
+
+    public static final BlockEntityType<CreativeSnuggleVaultBlockEntity> CREATIVE_SNUGGLE_VAULT = register("creative_snuggle_vault",
             BlockEntityType.Builder.create(CreativeSnuggleVaultBlockEntity::new,
                     SnuggleVaultBlocks.CREATIVE_SNUGGLE_VAULT).build());
 

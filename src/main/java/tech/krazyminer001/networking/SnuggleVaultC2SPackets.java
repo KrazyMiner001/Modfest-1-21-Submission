@@ -17,4 +17,26 @@ public class SnuggleVaultC2SPackets {
             return PACKET_ID;
         }
     }
+
+    public record ClawMachineStartPacket() implements CustomPayload {
+        public static final CustomPayload.Id<ClawMachineStartPacket> PACKET_ID = new CustomPayload.Id<>(of("claw_machine_start"));
+        public static final PacketCodec<RegistryByteBuf, ClawMachineStartPacket> PACKET_CODEC = PacketCodec.of((value, buf) -> {
+        }, buf -> new ClawMachineStartPacket());
+
+        @Override
+        public Id<? extends CustomPayload> getId() {
+            return PACKET_ID;
+        }
+    }
+
+    public record ClawMachineEndPacket() implements CustomPayload {
+        public static final CustomPayload.Id<ClawMachineEndPacket> PACKET_ID = new CustomPayload.Id<>(of("claw_machine_end"));
+        public static final PacketCodec<RegistryByteBuf, ClawMachineEndPacket> PACKET_CODEC = PacketCodec.of((value, buf) -> {
+        }, buf -> new ClawMachineEndPacket());
+
+        @Override
+        public Id<? extends CustomPayload> getId() {
+            return PACKET_ID;
+        }
+    }
 }
