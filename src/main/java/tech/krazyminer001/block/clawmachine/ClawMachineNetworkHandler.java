@@ -57,7 +57,9 @@ public class ClawMachineNetworkHandler {
 
                 closestSlot.ifPresent(slot -> {
                     if (Math.abs(Collections.min(slotMap.values())) < 5) {
-                        snuggleVaultBlockEntity.dispenseItem(slot.id);
+                        clawMachineBlockEntity.startReturn(slot.getIndex());
+                    } else {
+                        clawMachineBlockEntity.startReturn(-1);
                     }
                 });
             }

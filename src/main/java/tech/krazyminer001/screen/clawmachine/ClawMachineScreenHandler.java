@@ -30,7 +30,7 @@ public class ClawMachineScreenHandler extends ScreenHandler {
     // The client will call the other constructor with an empty Inventory, 
     // and the screenHandler will automatically sync this empty inventory with the inventory on the server.
     public ClawMachineScreenHandler(int syncId, PlayerInventory playerInventory) {
-        this(syncId, playerInventory, new SimpleInventory(1), null, new ArrayPropertyDelegate(1));
+        this(syncId, playerInventory, new SimpleInventory(1), null, new ArrayPropertyDelegate(2));
     }
 
     // This constructor gets called from the BlockEntity on the server without calling the other constructor first.
@@ -121,5 +121,9 @@ public class ClawMachineScreenHandler extends ScreenHandler {
 
     public int getProgress() {
         return propertyDelegate.get(0);
+    }
+
+    public int getReturnProgress() {
+        return propertyDelegate.get(1);
     }
 }

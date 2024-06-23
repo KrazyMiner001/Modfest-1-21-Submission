@@ -44,6 +44,26 @@ public class ClawMachineScreen extends HandledScreen<ClawMachineScreenHandler> {
         renderBackground(context, mouseX, mouseY, delta);
         super.render(context, mouseX, mouseY, delta);
         drawMouseoverTooltip(context, mouseX, mouseY);
+        int x = (width - backgroundWidth) / 2;
+        int y = (height - backgroundHeight) / 2;
+        if (this.active) {
+            int returnProgress = handler.getReturnProgress();
+            int progress = handler.getProgress();
+            int clawX = 0;
+            int clawY = 0;
+            if (returnProgress == 0) {
+                clawX = progress;
+            } else {
+                if (returnProgress > 80) {
+                    clawX = progress - (returnProgress - 80);
+                } else if (returnProgress > 40) {
+                    clawY = 40 - returnProgress;
+                } else {
+                    clawY = returnProgress;
+                }
+            }
+            context.drawGuiTexture(Identifier.of(""), clawX + x, clawY + 10 + y, 10, 10);
+        }
     }
 
     private <T extends ButtonWidget> void addButton(T button) {
@@ -73,7 +93,7 @@ public class ClawMachineScreen extends HandledScreen<ClawMachineScreenHandler> {
 
     @Override
     public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
-        if (keyCode == InputUtil.GLFW_KEY_SPACE) {
+        if (InputUtil.fromKeyCode(keyCode, scanCode).equals(InputUtil.fromTranslationKey("key.keyboard.space"))){
             if (this.active) {
                 SnuggleVaultC2SPacketSender.sendClawMachineEndPacket();
                 return true;
@@ -84,8 +104,10 @@ public class ClawMachineScreen extends HandledScreen<ClawMachineScreenHandler> {
     }
 
     private void startGame() {
-        this.buttons.clear();
-        this.active = true;
-        SnuggleVaultC2SPacketSender.sendClawMachineStartPacket();
+        if (!this.active) {
+            this.buttons.clear();
+            this.active = true;
+            SnuggleVaultC2SPacketSender.sendClawMachineStartPacket();
+        }
     }
 }

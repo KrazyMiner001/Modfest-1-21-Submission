@@ -28,16 +28,22 @@ import tech.krazyminer001.screen.clawmachine.ClawMachineScreenHandler;
 public class ClawMachineBlockEntity extends BlockEntity implements ImplementedInventory, NamedScreenHandlerFactory {
     private final DefaultedList<ItemStack> items = DefaultedList.ofSize(1, ItemStack.EMPTY);
     private int progress;
+    private int returnProgress;
     private final PropertyDelegate propertyDelegate = new PropertyDelegate() {
         @Override
         public int get(int index) {
-            return progress;
+            return switch (index) {
+                case 0 -> progress;
+                case 1 -> returnProgress;
+                default -> 0;
+            };
         }
 
         @Override
         public void set(int index, int value) {
             switch (index) {
                 case 0 -> progress = value;
+                case 1 -> returnProgress = value;
             }
         }
 
@@ -47,6 +53,8 @@ public class ClawMachineBlockEntity extends BlockEntity implements ImplementedIn
         }
     };
     private boolean active = false;
+    private boolean returnAnimation = false;
+    private Integer returnIndex;
 
     public ClawMachineBlockEntity(BlockPos pos, BlockState state) {
         super(SnuggleVaultBlockEntities.CLAW_MACHINE, pos, state);
@@ -56,8 +64,10 @@ public class ClawMachineBlockEntity extends BlockEntity implements ImplementedIn
     protected void readNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registryLookup) {
         super.readNbt(nbt, registryLookup);
         Inventories.readNbt(nbt, items, registryLookup);
-        nbt.getBoolean("active");
-        nbt.putInt("progress", progress);
+        active = nbt.getBoolean("active");
+        progress = nbt.getInt("progress");
+        returnProgress = nbt.getInt("returnProgress");
+        returnAnimation = nbt.getBoolean("returnAnimation");
     }
 
     @Override
@@ -65,6 +75,8 @@ public class ClawMachineBlockEntity extends BlockEntity implements ImplementedIn
         Inventories.writeNbt(nbt, items, registryLookup);
         nbt.putBoolean("active", active);
         nbt.putInt("progress", progress);
+        nbt.putInt("returnProgress", returnProgress);
+        nbt.putBoolean("returnAnimation", returnAnimation);
         super.writeNbt(nbt, registryLookup);
     }
 
@@ -110,7 +122,21 @@ public class ClawMachineBlockEntity extends BlockEntity implements ImplementedIn
 
     public static void serverTick(World world, BlockPos blockPos, BlockState state, ClawMachineBlockEntity clawMachineBlockEntity) {
         if (clawMachineBlockEntity.isActive()) {
-            clawMachineBlockEntity.incrementProgress();
+            clawMachineBlockEntity.progressTick();
+        }
+        if (clawMachineBlockEntity.returnAnimation) {
+            if (clawMachineBlockEntity.returnProgress == clawMachineBlockEntity.progress + 2 * 40) {
+                clawMachineBlockEntity.active = false;
+                clawMachineBlockEntity.returnAnimation = false;
+                clawMachineBlockEntity.returnProgress = 0;
+                clawMachineBlockEntity.progress = 0;
+
+                if (clawMachineBlockEntity.returnIndex != null) {
+                    world.getBlockEntity(blockPos.down(), SnuggleVaultBlockEntities.SNUGGLE_VAULT).ifPresent(snuggleVaultBlockEntity -> {
+                        snuggleVaultBlockEntity.dispenseItem(clawMachineBlockEntity.returnIndex);
+                    });
+                }
+            }
         }
     }
 
@@ -134,12 +160,23 @@ public class ClawMachineBlockEntity extends BlockEntity implements ImplementedIn
         return progress;
     }
 
-    public int incrementProgress() {
+    public void progressTick() {
+        if (returnAnimation) {
+            returnProgress++;
+            return;
+        }
         if (progress < 162) {
             progress++;
         } else {
             progress = 0;
         }
-        return progress;
+    }
+
+    public void startReturn(int returnIndex) {
+        returnAnimation = true;
+        this.returnIndex = returnIndex;
+        if (returnIndex == -1) {
+            this.returnIndex = null;
+        }
     }
 }
