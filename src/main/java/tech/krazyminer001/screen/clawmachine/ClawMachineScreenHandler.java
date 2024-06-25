@@ -1,5 +1,6 @@
 package tech.krazyminer001.screen.clawmachine;
 
+import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;

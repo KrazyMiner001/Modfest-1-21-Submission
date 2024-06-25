@@ -1,7 +1,10 @@
 package tech.krazyminer001.block;
 
+import com.mojang.datafixers.DataFix;
+import com.mojang.datafixers.TypeRewriteRule;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.datafixer.DataFixTypes;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import tech.krazyminer001.SnuggleVault;
@@ -17,13 +20,13 @@ public class SnuggleVaultBlockEntities {
         return Registry.register(Registries.BLOCK_ENTITY_TYPE, of(id), type);
     }
 
-    public static final BlockEntityType<SnuggleVaultBlockEntity> SNUGGLE_VAULT = register("snuggle_vault",
-            BlockEntityType.Builder.create(SnuggleVaultBlockEntity::new,
-                    SnuggleVaultBlocks.SNUGGLE_VAULT).build());
-
     public static void registerBlockEntities() {
         SnuggleVault.LOGGER.info("Registering Block Entities for " + SnuggleVault.MOD_ID);
     }
+
+    public static final BlockEntityType<SnuggleVaultBlockEntity> SNUGGLE_VAULT = register("snuggle_vault",
+            BlockEntityType.Builder.create(SnuggleVaultBlockEntity::new,
+                    SnuggleVaultBlocks.SNUGGLE_VAULT).build());
 
     public static final BlockEntityType<CreativeSnuggleVaultBlockEntity> CREATIVE_SNUGGLE_VAULT = register("creative_snuggle_vault",
             BlockEntityType.Builder.create(CreativeSnuggleVaultBlockEntity::new,
